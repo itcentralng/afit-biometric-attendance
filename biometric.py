@@ -23,14 +23,26 @@ uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
 finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
 
+def getserial(self, *args):
+        # Extract serial from cpuinfo file
+        cpuserial = "0000000000000000"
+        try:
+            f = open('/proc/cpuinfo','r')
+            for line in f:
+                if line[0:6]=='Serial':
+                    cpuserial = line[10:26]
+            f.close()
+        except:
+            cpuserial = "ERROR000000000"
+        return cpuserial
+
 
 def delete_directory(directory):
     try:
         # Delete the entire directory and its contents
         shutil.rmtree(directory)
-        print(f"Deleted directory: {directory}")
     except Exception as e:
-        print(f"Error deleting directory {directory}: {e}")
+        pass
 
 
 def fetch_fingerprints():
@@ -40,7 +52,7 @@ def fetch_fingerprints():
     url = 'https://7d3e-197-210-76-53.ngrok-free.app/biometric/fetch'
 
     # Make a GET request to the Flask endpoint
-    response = requests.get(url)
+    response = requests.get(url, headers={'Authorization':getserial()})
 
     # Check if the request was successful (status code 200)
     if response.status_code == 200:
@@ -84,19 +96,6 @@ def find_fingerprint_match():
         if i == adafruit_fingerprint.NOMATCH:
             pass
     return False
-
-def getserial(self, *args):
-        # Extract serial from cpuinfo file
-        cpuserial = "0000000000000000"
-        try:
-            f = open('/proc/cpuinfo','r')
-            for line in f:
-                if line[0:6]=='Serial':
-                    cpuserial = line[10:26]
-            f.close()
-        except:
-            cpuserial = "ERROR000000000"
-        return cpuserial
 
 def submit_attendance(fingerprint):
     url = 'https://7d3e-197-210-76-53.ngrok-free.app/attendance'
