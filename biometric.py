@@ -24,6 +24,8 @@ uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
 
 finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
+from config import API_URL
+
 
 def getserial():
         # Extract serial from cpuinfo file
@@ -52,7 +54,7 @@ def fetch_fingerprints():
         folder = "templates"
         delete_directory(folder)
         # Replace with the URL of your Flask endpoint
-        url = 'https://7d3e-197-210-76-53.ngrok-free.app/biometric/fetch'
+        url = f'{API_URL}/biometric/fetch/students'
 
         # Make a GET request to the Flask endpoint
         response = requests.get(url, headers={'Authorization':getserial()})
@@ -106,7 +108,7 @@ def find_fingerprint_match():
 
 def submit_attendance(fingerprint):
     try:
-        url = 'https://7d3e-197-210-76-53.ngrok-free.app/attendance'
+        url = f'{API_URL}/attendance/student'
         payload = {
             'regnum': fingerprint.split('.')[0]
         }
