@@ -101,20 +101,23 @@ def find_fingerprint_match():
     return False
 
 def submit_attendance(fingerprint):
-    url = 'https://7d3e-197-210-76-53.ngrok-free.app/attendance'
-    payload = {
-        'regnum': fingerprint.split('.')[0]
-    }
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': getserial()
-    }
-    # Make a GET request to the Flask endpoint
-    response = requests.post(url, json=payload, headers=headers)
-    if response.json().get('success'):
-        print('success')
-    else:
-        print('failed')
+    try:
+        url = 'https://7d3e-197-210-76-53.ngrok-free.app/attendance'
+        payload = {
+            'regnum': fingerprint.split('.')[0]
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': getserial()
+        }
+        # Make a GET request to the Flask endpoint
+        response = requests.post(url, json=payload, headers=headers)
+        if response.json().get('success'):
+            print('success')
+        else:
+            print('failed')
+    except Exception as e:
+        print(e)
 
 fetch_fingerprints()
 while True:
