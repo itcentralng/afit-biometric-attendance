@@ -23,7 +23,7 @@ uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
 finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
 
-def getserial(self, *args):
+def getserial():
         # Extract serial from cpuinfo file
         cpuserial = "0000000000000000"
         try:
