@@ -46,7 +46,7 @@ def delete_directory(directory):
 
 
 def fetch_fingerprints():
-    folder = "tempalates"
+    folder = "templates"
     delete_directory(folder)
     # Replace with the URL of your Flask endpoint
     url = 'https://7d3e-197-210-76-53.ngrok-free.app/biometric/fetch'
@@ -82,7 +82,7 @@ def find_fingerprint_match():
         return False
 
     print("Loading files...", end="")
-    folder = "tempaltes"
+    folder = "templates"
     files = os.listdir(os.path.join(folder))
     for f in files:
         with open(f, "rb") as file:
