@@ -81,7 +81,7 @@ def find_fingerprint_match():
     if finger.image_2_tz(1) != adafruit_fingerprint.OK:
         return False
 
-    print("Loading files...", end="")
+    print("Loading files...")
     folder = "templates"
     files = os.listdir(os.path.join(folder))
     for f in files:
