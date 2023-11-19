@@ -85,7 +85,7 @@ def find_fingerprint_match():
     folder = "templates"
     files = os.listdir(os.path.join(folder))
     for f in files:
-        with open(f, "rb") as file:
+        with open(os.path.join(folder, f), "rb") as file:
             data = file.read()
         finger.send_fpdata(list(data), "char", 2)
 
