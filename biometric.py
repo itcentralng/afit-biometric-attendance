@@ -114,11 +114,6 @@ def submit_attendance(fingerprint):
     else:
         print('failed')
 
-
-import sched, time
-do_fetch = sched.scheduler(time.time, time.sleep)
-do_fetch.enter(60, 1, fetch_fingerprints, (do_fetch, ))
-do_fetch.run()
-
+fetch_fingerprints()
 while True:
     find_fingerprint_match()
