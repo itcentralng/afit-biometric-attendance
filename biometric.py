@@ -91,6 +91,7 @@ def find_fingerprint_match():
 
         i = finger.compare_templates()
         if i == adafruit_fingerprint.OK:
+            print("Fingerprint found")
             submit_attendance(f)
             return True
         if i == adafruit_fingerprint.NOMATCH:
