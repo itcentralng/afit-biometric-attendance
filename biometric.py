@@ -54,7 +54,7 @@ def fetch_fingerprints():
         folder = "templates"
         delete_directory(folder)
         # Replace with the URL of your Flask endpoint
-        url = f'{API_URL}/biometric/fetch/students'
+        url = f'{API_URL}/biometric/fetch/student'
 
         # Make a GET request to the Flask endpoint
         response = requests.get(url, headers={'Authorization':getserial()})
