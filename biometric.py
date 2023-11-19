@@ -7,6 +7,8 @@ import requests
 from io import BytesIO
 import zipfile
 
+import threading
+
 import time
 import board
 import busio
@@ -92,7 +94,7 @@ def find_fingerprint_match():
         i = finger.compare_templates()
         if i == adafruit_fingerprint.OK:
             print("Fingerprint found")
-            submit_attendance(f)
+            threading.Thread(target=lambda x: submit_attendance(f)).start()
             return True
         if i == adafruit_fingerprint.NOMATCH:
             pass
