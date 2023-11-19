@@ -48,29 +48,33 @@ def delete_directory(directory):
 
 
 def fetch_fingerprints():
-    folder = "templates"
-    delete_directory(folder)
-    # Replace with the URL of your Flask endpoint
-    url = 'https://7d3e-197-210-76-53.ngrok-free.app/biometric/fetch'
+    try:
+        folder = "templates"
+        delete_directory(folder)
+        # Replace with the URL of your Flask endpoint
+        url = 'https://7d3e-197-210-76-53.ngrok-free.app/biometric/fetch'
 
-    # Make a GET request to the Flask endpoint
-    response = requests.get(url, headers={'Authorization':getserial()})
+        # Make a GET request to the Flask endpoint
+        response = requests.get(url, headers={'Authorization':getserial()})
 
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        # Create a BytesIO object from the response content
-        zip_buffer = BytesIO(response.content)
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Create a BytesIO object from the response content
+            zip_buffer = BytesIO(response.content)
 
-        # Create a ZipFile object
-        with zipfile.ZipFile(zip_buffer, 'r') as zip_file:
-            # Specify the directory where you want to extract the files
-            os.makedirs(folder, exist_ok=True)
+            # Create a ZipFile object
+            with zipfile.ZipFile(zip_buffer, 'r') as zip_file:
+                # Specify the directory where you want to extract the files
+                os.makedirs(folder, exist_ok=True)
 
-            # Extract all files to the specified directory
-            zip_file.extractall(folder)
+                # Extract all files to the specified directory
+                zip_file.extractall(folder)
 
-    else:
-        print(f"Error: {response.status_code}")
+        else:
+            print(f"Error: {response.status_code}")
+    except Exception as e:
+        print(e)
+        fetch_fingerprints()
 
 
 def find_fingerprint_match():
