@@ -94,7 +94,7 @@ def find_fingerprint_match():
         i = finger.compare_templates()
         if i == adafruit_fingerprint.OK:
             print("Fingerprint found")
-            threading.Thread(target=lambda x: submit_attendance(f)).start()
+            threading.Thread(target=submit_attendance, args=(f, )).start()
             return True
         if i == adafruit_fingerprint.NOMATCH:
             pass
